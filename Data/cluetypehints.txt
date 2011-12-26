@@ -1,0 +1,49 @@
+# I'm maintaining this list in a git repository that can be found on
+# github:
+# 
+#   https://github.com/mhl/cryptic-crossword-indicators-and-abbreviations/
+# 
+# Please let me know if you think something should be added to this list.
+# 
+# Those words marked with * are generally only found in advanced cryptic
+# crosswords and those marked with + are regarded as unsound by some.
+#
+# Ram Narasimhan <ram.narasimhan@gmail.com>
+#
+# sources: http://www.anandnatrajan.com/FAQs/crosswords.html
+
+around : Take one Letter and wrap another word 'around' it
+arrange : Indicates an ANAGRAM
+back : Indicates some word needs to be reverse
+bothered : Indicates an ANAGRAM
+break : Indicates an ANAGRAM
+could be: Indicates an ANAGRAM
+dance : Take one Letter and wrap another word 'around' it
+distress : Indicates an ANAGRAM
+distressed : Indicates an ANAGRAM
+flying: Indicates an ANAGRAM (rare)
+found: Indicates a HIDDEN WORD INSIDE ANOTHER
+found in: Strongly Indicates solution is HIDDEN INSIDE OTHER words in clue
+hear: Indicates a HOMOPHONE. find a word that sounds like the answer 
+in: Indicates a HIDDEN WORD INSIDE ANOTHER
+inside: Indicates a HIDDEN WORD INSIDE ANOTHER
+jumble : Indicates an ANAGRAM
+lose : Some Letter needs to be removed
+mad : Indicates an ANAGRAM
+militant : Indicates an ANAGRAM
+mix : Indicates an ANAGRAM
+muddle : Indicates an ANAGRAM
+new : Indicates an ANAGRAM
+rearrange : Indicates an ANAGRAM
+rebuff: Indicates some word needs to be reverse
+reverse: Indicates some word needs to be reverse
+sounds like: Indicates a HOMOPHONE. find a word that sounds like the answer 
+turn : Indicates an ANAGRAM
+turns : Indicates an ANAGRAM
+upset : Indicates an ANAGRAM
+upsetting: Indicates an ANAGRAM
+uprising : Indicates an ANAGRAM
+we hear: Indicates a HOMOPHONE. find a word that sounds like the clue word 
+without : Some Letter needs to be removed
+
+

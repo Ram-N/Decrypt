@@ -1,0 +1,27 @@
+at last: Indicates last letter of preceding word
+egghead: Indicates E
+first of: Indicates that we should take first letter of following word
+leading: Leading followed by a word - means take first letter of the
+word
+leader of: Leading followed by a word - means take first letter of the
+word
+leader: Possessive followed by Leader - means take first letter of the word
+maidenhead : Indicates M
+masthead : Indicates M
+redhead: R
+with: Think of this as a "linking word", a + sign, to combine two parts of the solution
+
+center : look at the middle letter in the word
+beginning
+initially
+primarily
+chiefly
+finally
+ultimately
+head
+chief
+leader
+end
+tail
+start
+end: Last letter of prev word. (As in East End is D)
