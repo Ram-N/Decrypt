@@ -1,0 +1,9 @@
+Git commands:
+http://help.github.com/create-a-repo/
+
+cd Decrypt # Directory name same as the GitHub repo name
+git init
+git remote add origin git@github.com:Ram-N/Decrypt.git
+git add *.py # all the new files that you want to push to Github
+git commit -m 'some comment on what is being pushed to remote'
+git push -u origin master
