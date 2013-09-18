@@ -1,8 +1,9 @@
 import itertools
-import enchant
+#import enchant
 from nltk.corpus import wordnet
 
-import myutils
+import textutils
+
 import cfg # src file with globals
 
 
@@ -33,7 +34,7 @@ def identify_anagram_fodder(cluewords):
     #remove the last token (it contains the length of the solution)
     cluewords.pop()
 
-    print("Anag Parameters: starts at",cfg.anagrindIndex,            cfg.numAnagrindWords)
+    print("Anag Parameters: Starts at",cfg.anagrindIndex,  cfg.numAnagrindWords)
 
     for i in range(clueEnd):
         if (i >= cfg.anagrindIndex) and (i<cfg.anagrindIndex+cfg.numAnagrindWords):

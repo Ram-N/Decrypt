@@ -1,7 +1,7 @@
 import itertools
-import enchant
-import anagrind
 from nltk.corpus import wordnet
+#import enchant
+import anagrind
 import cfg # src file with globals
 
 ############parsing####################

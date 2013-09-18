@@ -1,12 +1,30 @@
+#!/usr/bin/env python
+import math
+import os # Imports your specific operating system (os)
+# import enchant
+import urllib
+from nltk.corpus import wordnet
+import re
+import sys
+
+#import personal modules
+import cfg # src file with globals
+import fileutils
+import textutils
+import anagrind # another src file
+import charade  # another src file
+
+###########################################from urllib2 import *
+
+
 def isValid_english(word):
     print(d.check(word))
 
 def read_all_indicators():
       #URL LIBRARY
-      from urllib2 import *
       ur = urlopen("https://raw.github.com/mhl/cryptic-crossword-indicators-and-abbreviations/master/indicators.yml")
       contents = ur.readlines()#readlines from url file
-      fo = open("indicators.txt", "w")#open test.txt
+      fo = open("indicators.txt", "w")
       for line in contents:
           #print "writing %s to a file" %(line,)
           fo.write(line) #write lines from url file to text file
@@ -40,7 +58,7 @@ def     create_dict_entry(dic,reverse,line):
         addindicator_to_dictionary(dic,key,value)
 
 
-def build_dictionary(filename,dic,reverse):
+def build_dictionary(filename, dic, reverse):
     #read the line in file indicators.txt
     fo = open(filename, "r")
     for line in fo:
@@ -175,7 +193,17 @@ def getNumSolWords(lTok):
     if cfg.nSolutionWords == 1:
         cfg.isSingleWordSolution = 1
 
+#message()
+def message():
+    again = raw_input("Do you want to play again? (Y/N) : ")
+    if(again == "Y" or again == "y"):
+        cwsolver()
+    else:
+        print "\n\n-------Thank you for playing!--------\n\n"
+        exit()
 
+
+##
 ##########################################
 
 ## See if any of the cluewords matches indicators
@@ -274,34 +302,20 @@ def initialize_clue():
 
 
 ###########################################
-import math
-import os #Imports your specific operating system (os)
-os.system("cls")    #Windows based systems us
-import enchant
-import urllib
-from nltk.corpus import wordnet
-import re
-import sys
-
-
-import cfg # src file with globals
-import myutils
-import anagrind # another src file
-import charade  # another src file
-
-###########################################
-d = enchant.Dict("en_US")
-typefound = 0
-mList = []
+if __name__ == '__main__':
+    
+#d = enchant.Dict("en_US")
+    typefound = 0
+    mList = []
 
 #Read the commandline flag
-if len(sys.argv) >1: #if a flag exists
-    cfg.mode = sys.argv[1]
+    if len(sys.argv) >1: #if a flag exists
+        cfg.mode = sys.argv[1]
 
-if cfg.mode == 'a':    print("Append Anagram Indicator")
-if cfg.mode == 'c':    print("Append Charade Indicator")
-if cfg.mode == 'm':    print("Meanings only")
-if cfg.mode == 'addstop':    print("Append Stop Words")
+        if cfg.mode == 'a':    print("Append Anagram Indicator")
+        if cfg.mode == 'c':    print("Append Charade Indicator")
+        if cfg.mode == 'm':    print("Meanings only")
+        if cfg.mode == 'addstop':    print("Append Stop Words")
 
 
 ## go through the list of indicators
@@ -309,63 +323,40 @@ if cfg.mode == 'addstop':    print("Append Stop Words")
 #uncomment if github file needs to be read
 #read_all_indicators()
 
-# build dictionary from local file (indicators.txt)
-build_dictionary("indicators.txt",cfg.charade_dict,reverse=1)
-#print_dictionary(charade_dict)
+    INDFILE = 'Data/indicators.txt'
+    CLUETYPEFILE = 'Data/cluetypehints.txt'
+    ANAGRINDFILE = 'Data/anagrinds.txt'
+    STOPWORDSFILE = 'Data/stopwords.txt'
+    CLUEFILE = 'Data/clue.txt'
 
-# build dictionary from local file (indicators.txt)
-build_dictionary("cluetypehints.txt",cfg.cluetype_dict,reverse=0)
-#print_dictionary(cluetype_dict)
 
-anagrind.read_anagrinds("anagrinds.txt",cfg.anagrinds)
-#print_list(anagrinds)
+    # build dictionary from local file (indicators.txt)
+    build_dictionary(INDFILE,cfg.charade_dict,reverse=1)
+# print_dictionary(charade_dict)
 
-cfg.stopwords= open(r'stopwords.txt', 'r').read().splitlines()
+    # build dictionary from local file (indicators.txt)
+    build_dictionary(CLUETYPEFILE, cfg.cluetype_dict,reverse=0)
+    #print_dictionary(cluetype_dict)
 
-initfile(cfg.solnFile)
+    anagrind.read_anagrinds(ANAGRINDFILE, cfg.anagrinds)
+    #print_list(anagrinds)
 
-# Read the clue
-#fullclue = get_clue()
+    cfg.stopwords= open(STOPWORDSFILE, 'r').read().splitlines()
 
-fullcluelist = get_clue_from_file("clue.txt")
+    initfile(cfg.solnFile)
 
-print "# clues is: ", len(fullcluelist)
+    # Read the clue
+    # fullclue = get_clue()
 
-for fullclue in fullcluelist:
-    initialize_clue()
-    cw_solve(fullclue)
-    wprint(cfg.solnFile,cfg.solTextSeq)
+
+
+    fullcluelist = get_clue_from_file(CLUEFILE)
+
+    print "Number of clues read: ", len(fullcluelist)
+
+    for fullclue in fullcluelist:
+        initialize_clue()
+        cw_solve(fullclue)
+        wprint(cfg.solnFile,cfg.solTextSeq)
 
 ##########################################
-
-
-
-
-
-#message()
-def message():
-		again = raw_input("Do you want to play again? (Y/N) : ")
-		if(again == "Y" or again == "y"):
-			cwsolver()
-		else:
-			print "\n\n-------Thank you for playing!--------\n\n"
-			exit()
-
-
-##
-
-
-
-
-# http://stackoverflow.com/questions/6418785/scraping-english-words-using-python
-# english_words = [tok for tok in tokens if d.check(tok)]
-
-
-# Get a file-like object for the Python Web site's home page.
-#f = urllib.urlopen("http://www.python.org")
-# Read from the object, storing the page's contents in 's'.
-#s = f.read()
-#f.close()
-
-
-# how to do error checking in Python
