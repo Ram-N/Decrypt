@@ -9,3 +9,14 @@ def wc(filename):
     return (len(data), len(data.split()), len(data.splitlines()))
 
 
+def wprint(filename, text):
+    f= open(filename,'at')
+    f.writelines(text+ "\n")
+    f.close()
+
+def initfile(filename):
+    f= open(filename,'w')
+    f.write("\n")
+    f.close()
+
+

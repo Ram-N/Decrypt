@@ -9,6 +9,7 @@ import sys
 
 #import personal modules
 import cfg # src file with globals
+import utils
 import fileutils
 import textutils
 import anagrind # another src file
@@ -71,30 +72,10 @@ def build_dictionary(filename, dic, reverse):
 ########### eo building dictionaries ############
 
 
-def print_dictionary(dic):
-    for key in dic:
-        print key, dic.get(key)
-
-
-def print_list(anagrinds):
-    for a in anagrinds:
-        print a
-
 
 def meaning(oneword):
     for word_meaning in wordnet.synsets(oneword):
         print oneword.upper(),":", word_meaning.definition
-
-def wprint(filename, text):
-    f= open(filename,'at')
-    f.writelines(text+ "\n")
-    f.close()
-
-def initfile(filename):
-    f= open(filename,'w')
-    f.write("\n")
-    f.close()
-
 
 ############
 
@@ -193,17 +174,6 @@ def getNumSolWords(lTok):
     if cfg.nSolutionWords == 1:
         cfg.isSingleWordSolution = 1
 
-#message()
-def message():
-    again = raw_input("Do you want to play again? (Y/N) : ")
-    if(again == "Y" or again == "y"):
-        cwsolver()
-    else:
-        print "\n\n-------Thank you for playing!--------\n\n"
-        exit()
-
-
-##
 ##########################################
 
 ## See if any of the cluewords matches indicators
@@ -214,16 +184,13 @@ def identify_cluetype(fullclue):
 
     ## Is an anagram indicated?
     anagfound = anagrind.check_if_full_anagram(fullclue)
-
+    if (anagfound == 1):
+        typefound = 1
 
     if cfg.mode == 'm':
         charade.print_clue_meaning()
         return 0
 
-    # identify_definition()
-
-    if (anagfound == 1):
-        typefound = 1
 
     #need to see if dict_value contained in full clue
     cluewords = fullclue.split()
@@ -265,10 +232,7 @@ def cw_solve(fullclue):
     #remove the last token (it contains the length of the solution)
     cfg.indivClueWordsSeq.pop()
 
-# See if any of the cluewords matches indicators
-    typefound = identify_cluetype(fullclue)
-
-## See if any letters can be figured out
+    ## See if any letters can be figured out
     charade.parse_clue(fullclue)
 
 # Solution Options
@@ -329,6 +293,10 @@ if __name__ == '__main__':
     STOPWORDSFILE = 'Data/stopwords.txt'
     CLUEFILE = 'Data/clue.txt'
 
+    HOMOPHONE_INDICATORS = ['on the air', 'broadcast', 'hear', 'said', 'declared', 'audibly', 'outspoken', 'reportedly', 'sounds like', 'vocal']
+    DELETION_INDICATORS = ['absent', 'excluding', 'losing', 'not', 'dropped', 'cut', 'without', 'short']
+    LETTER_POSITION = ['first', 'head', 'opener', 'tail', 'end', 'conclusion', 'half', 'middle', 'centre']
+    
 
     # build dictionary from local file (indicators.txt)
     build_dictionary(INDFILE,cfg.charade_dict,reverse=1)
@@ -350,13 +318,22 @@ if __name__ == '__main__':
 
 
 
-    fullcluelist = get_clue_from_file(CLUEFILE)
+    fullclueList = get_clue_from_file(CLUEFILE)
 
-    print "Number of clues read: ", len(fullcluelist)
+    print "Number of clues read: ", len(fullclueList)
 
-    for fullclue in fullcluelist:
+    for fullclue in fullclueList:
         initialize_clue()
         cw_solve(fullclue)
         wprint(cfg.solnFile,cfg.solTextSeq)
+
+        # identify_definition()
+
+        # See if any of the cluewords matches indicators
+        print("IDENTIFYING TYPE OF CLUE")
+        typefound = identify_cluetype(fullclue)
+
+
+
 
 ##########################################
