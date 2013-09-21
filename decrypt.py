@@ -10,13 +10,12 @@ import sys
 #import personal modules
 import cfg # src file with globals
 import utils
-import fileutils
-import textutils
+from fileutils import *
+from textutils import *
 import anagrind # another src file
 import charade  # another src file
 
 ###########################################from urllib2 import *
-
 
 def isValid_english(word):
     print(d.check(word))
@@ -80,7 +79,7 @@ def meaning(oneword):
 ############
 
 def print_sol_length(cluewords):
-#check if the solution length is given
+    #check if the solution length is given
     print "The number of words in the clue is:", len(cluewords)
     return(len(cluewords))
 
@@ -108,6 +107,7 @@ def tokenize_clue(clue_string):
     # create a List of the clue words
     cfg.indivClueWordsSeq = clue_string.split(" ")
     cfg.numWordsInClue = len(cfg.indivClueWordsSeq) - 1
+    return(cfg.numWordsInClue, cfg.indivClueWordsSeq)
 
 
 def get_total_letters_in_solution():
@@ -214,7 +214,7 @@ def cw_solve(fullclue):
     # Parse the clue (Make sure it is well formatted)
     error_check_clue(fullclue)
 
-    tokenize_clue(fullclue)
+    (numWordsInClue, clueWordsList) = tokenize_clue(fullclue)
 
     print( "Clue words", cfg.numWordsInClue)
 
@@ -235,9 +235,24 @@ def cw_solve(fullclue):
     ## See if any letters can be figured out
     charade.parse_clue(fullclue)
 
-# Solution Options
-# Present the best guess
+    # Solution Options
+    
+    #### BIGRAMS
+    bigrams = find_ngrams(clueWordsList, 2)
+    print_list(bigrams)
+    
+    # Present the best guess
 
+    ######### Get Meanings
+    definition = clueWordsList[0] #this needs to come from a function...
+    
+    bag = getBagOfWordsOfLenN(definition, solLengthList[0])
+    meanL = getMeaningsList(definition)
+
+    print_list(meanL)
+    print("%d letter possibilities" % solLengthList[0])
+    print_list(bag)
+        
     print "End - ", fullclue
 
 
@@ -268,11 +283,10 @@ def initialize_clue():
 ###########################################
 if __name__ == '__main__':
     
-#d = enchant.Dict("en_US")
     typefound = 0
     mList = []
 
-#Read the commandline flag
+    #Read the commandline flag
     if len(sys.argv) >1: #if a flag exists
         cfg.mode = sys.argv[1]
 
@@ -282,10 +296,10 @@ if __name__ == '__main__':
         if cfg.mode == 'addstop':    print("Append Stop Words")
 
 
-## go through the list of indicators
+    ## go through the list of indicators
 
-#uncomment if github file needs to be read
-#read_all_indicators()
+    #uncomment if github file needs to be read
+    #read_all_indicators()
 
     INDFILE = 'Data/indicators.txt'
     CLUETYPEFILE = 'Data/cluetypehints.txt'
@@ -300,7 +314,7 @@ if __name__ == '__main__':
 
     # build dictionary from local file (indicators.txt)
     build_dictionary(INDFILE,cfg.charade_dict,reverse=1)
-# print_dictionary(charade_dict)
+    # print_dictionary(charade_dict)
 
     # build dictionary from local file (indicators.txt)
     build_dictionary(CLUETYPEFILE, cfg.cluetype_dict,reverse=0)

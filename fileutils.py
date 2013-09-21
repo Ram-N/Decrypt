@@ -15,6 +15,7 @@ def wprint(filename, text):
     f.close()
 
 def initfile(filename):
+    '''Blank out the file if it exists'''
     f= open(filename,'w')
     f.write("\n")
     f.close()

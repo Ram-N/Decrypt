@@ -6,6 +6,15 @@ import itertools
 
 from utils import *
 
+
+def find_ngrams(input_list, n):
+    '''
+    Given a list and N, generate all N grams
+    Borrowed http://locallyoptimal.com/blog/2013/01/20/elegant-n-gram-generation-in-python/
+    '''
+    return zip(*[input_list[i:] for i in range(n)])
+
+
 def containsAny(str, set):
     """Check whether 'str' contains ANY of the chars in 'set'"""
     return 1 in [c in str for c in set]
