@@ -1,5 +1,4 @@
 import itertools
-#import enchant
 from nltk.corpus import wordnet
 
 import textutils

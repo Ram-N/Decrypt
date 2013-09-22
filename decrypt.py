@@ -183,7 +183,8 @@ def identify_cluetype(fullclue):
     typefound = 0
 
     ## Is an anagram indicated?
-    anagfound = anagrind.check_if_full_anagram(fullclue)
+#    anagfound = anagrind.check_if_full_anagram(fullclue)
+    anagfound=0 #TEMP
     if (anagfound == 1):
         typefound = 1
 
@@ -253,6 +254,11 @@ def cw_solve(fullclue):
     print("%d letter possibilities" % solLengthList[0])
     print_list(bag)
         
+        
+    get_synonyms(definition)
+    s = get_synonyms_of_length_N(definition, solLengthList[0])
+    print_list(s)
+    
     print "End - ", fullclue
 
 
